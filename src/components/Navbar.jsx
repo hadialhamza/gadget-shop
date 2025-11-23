@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { signOut, useSession } from "next-auth/react";
 
 const ThemeToggle = dynamic(() => import("./ThemeToggle"), { ssr: false });
 
 const Navbar = () => {
+  const { data: session } = useSession();
   const navOptions = (
     <>
       <li>
@@ -61,9 +63,47 @@ const Navbar = () => {
       <div className="navbar-end gap-2">
         <ThemeToggle />
 
-        <Link href="/login" className="btn btn-primary px-5">
-          Login
-        </Link>
+        {session ? (
+          <div className="dropdown dropdown-end ml-2">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                {/* ইউজারের ছবি থাকলে দেখাবে, না থাকলে ডিফল্ট */}
+                <img
+                  alt="User"
+                  src={
+                    session.user?.image ||
+                    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  }
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li className="menu-title">{session.user?.name}</li>
+              <li>
+                <Link href="/dashboard/add-product">Add Product</Link>
+              </li>
+              <li>
+                <Link href="/dashboard/manage-products">Manage Products</Link>
+              </li>
+              <li>
+                <button onClick={() => signOut()} className="text-error">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link href="/login" className="btn btn-primary px-5">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
