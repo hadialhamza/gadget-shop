@@ -2,78 +2,65 @@ import Link from "next/link";
 import { ShoppingBag, Truck, ShieldCheck, Headphones } from "lucide";
 import ProductCard from "@/components/ProductCard";
 
-const featuredProducts = [
-  {
-    id: 1,
-    title: "Wireless Headphones",
-    price: 59.99,
-    description: "Noise cancelling high quality sound.",
-    image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-  },
-  {
-    id: 2,
-    title: "Smart Watch Pro",
-    price: 129.0,
-    description: "Track your fitness with style and precision.",
-    image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
-  },
-  {
-    id: 3,
-    title: "Gaming Mouse",
-    price: 45.5,
-    description: "RGB lighting with ultra fast response time.",
-    image:
-      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&q=80",
-  },
-];
+// ডাটা ফেচিং ফাংশন (Server Side)
+async function getProducts() {
+  // ক্যাশ 'no-store' দেওয়া হয়েছে যাতে প্রতিবার নতুন ডাটা দেখায় (Real-time update)
+  // নোট: প্রোডাকশনে 'http://localhost:3000' এর বদলে আপনার ডোমেইন নেম ব্যবহার করতে হবে
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/products`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.products;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+}
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
+  const featuredProducts = products.slice(0, 6); // প্রথম ৬টি প্রোডাক্ট [cite: 25
   return (
     <main>
-      {/* --- SECTION 1: HERO --- */}
-      <div className="hero min-h-[80vh] bg-base-200">
+      {/* Hero Section */}
+      <div className="hero min-h-[60vh] bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse gap-10">
           <img
             src="https://images.unsplash.com/photo-1550009158-9ebf69056955?w=600&q=80"
-            className="max-w-sm md:max-w-md rounded-lg shadow-2xl"
-            alt="Gadget Hero"
+            className="max-w-sm rounded-lg shadow-2xl"
+            alt="Hero Gadget"
           />
           <div>
-            <h1 className="text-5xl font-bold">Upgrade Your Tech Life!</h1>
-            <p className="py-6 text-lg">
-              Discover the latest gadgets that make your life smarter, easier,
-              and more fun. Get the best deals on authentic tech products.
+            <h1 className="text-5xl font-bold">Newest Gadgets Here!</h1>
+            <p className="py-6">
+              Find your favorite tech accessories at the best price.
             </p>
-            <Link href="/products" className="btn btn-primary btn-lg">
+            <Link href="/products" className="btn btn-primary">
               Shop Now
             </Link>
           </div>
         </div>
       </div>
 
-      {/* --- SECTION 2: FEATURED PRODUCTS --- */}
+      {/* Featured Products Grid */}
       <section className="py-16 px-4 md:px-12">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold mb-2">Featured Gadgets</h2>
-          <p className="text-gray-500">
-            Check out our top-selling products this week
+        <h2 className="text-3xl font-bold text-center mb-10">Featured Items</h2>
+
+        {products.length === 0 ? (
+          <p className="text-center">
+            No products found. Add some from dashboard!
           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
-          <Link href="/products" className="btn btn-outline btn-wide">
-            View All Products
-          </Link>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
+
 
       {/* --- SECTION 3: FEATURES / WHY CHOOSE US --- */}
       <section className="py-16 bg-base-200 px-4">

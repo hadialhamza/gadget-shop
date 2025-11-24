@@ -1,21 +1,31 @@
-import ProductCard from "@/components/ProductCard";
-import React from "react";
+import ProductView from "@/components/ProductView";
 
-const Products = async () => {
-  const res = await fetch("http://localhost:3000/api/products");
-  const data = await res.json();
+const ProductsPage = async () => {
+  let products = [];
 
-  const products = data?.products;
-  console.log(products);
+  try {
+    // সার্ভার সাইড ডাটা ফেচিং
+    // নোট: ডেভেলপমেন্টে http://localhost:3000 ঠিক আছে, কিন্তু ডিপ্লয়ের সময় ডোমেইন লিংক লাগবে।
+    // আপাতত রিলেটিভ পাথ ব্যবহার না করে সরাসরি ইউআরএল বা ডাটাবেস কল করা ভালো।
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/products`,
+      {
+        cache: "no-store",
+      }
+    );
 
-  return (
-    <div>
-      {products.map((product) => (
-        <ProductCard key={product._id} product={product} />
-        // <h2 key={product._id}>{product.title}</h2>
-      ))}
-    </div>
-  );
+    if (!res.ok) {
+      throw new Error("Failed to fetch");
+    }
+
+    const data = await res.json();
+    products = data?.products || [];
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+
+  // ক্লায়েন্ট কম্পোনেন্টকে ডাটা পাস করা হচ্ছে
+  return <ProductView products={products} />;
 };
 
-export default Products;
+export default ProductsPage;
