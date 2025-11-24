@@ -7,7 +7,7 @@ async function getProducts() {
   // ক্যাশ 'no-store' দেওয়া হয়েছে যাতে প্রতিবার নতুন ডাটা দেখায় (Real-time update)
   // নোট: প্রোডাকশনে 'http://localhost:3000' এর বদলে আপনার ডোমেইন নেম ব্যবহার করতে হবে
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/products`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/products`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

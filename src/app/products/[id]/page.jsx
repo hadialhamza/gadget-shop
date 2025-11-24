@@ -2,9 +2,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 async function getProduct(id) {
-  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/products/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
   if (!res.ok) return null;
   const data = await res.json();
   return data.product;
