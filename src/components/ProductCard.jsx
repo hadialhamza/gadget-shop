@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
           </span>
           <div className="card-actions">
             <Link
-              href={`/products/${product.id}`}
+              href={`/products/${product._id}`}
               className="btn btn-primary btn-sm"
             >
               View Details

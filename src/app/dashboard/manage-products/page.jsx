@@ -62,6 +62,12 @@ export default function ManageProducts() {
                   >
                     View
                   </Link>
+                  <Link
+                    href={`/dashboard/edit-product/${product._id}`}
+                    className="btn btn-xs btn-warning"
+                  >
+                    Edit
+                  </Link>
                   <button
                     onClick={() => handleDelete(product._id)}
                     className="btn btn-xs btn-error"

@@ -1,17 +1,19 @@
+import ProductCard from "@/components/ProductCard";
 import React from "react";
 
 const Products = async () => {
-  const products = await fetch(
-    "https://modelmatrixapi.vercel.app/models/recent"
-  ).then((res) => res.json());
+  const res = await fetch("http://localhost:3000/api/products");
+  const data = await res.json();
 
+  const products = data?.products;
   console.log(products);
 
   return (
     <div>
-      {products?.result?.map((product) => {
-        return <h1 key={product.id}>{product?.name}</h1>;
-      })}
+      {products.map((product) => (
+        <ProductCard key={product._id} product={product} />
+        // <h2 key={product._id}>{product.title}</h2>
+      ))}
     </div>
   );
 };

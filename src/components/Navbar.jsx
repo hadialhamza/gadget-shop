@@ -16,10 +16,10 @@ const Navbar = () => {
         <Link href="/products">All Gadgets</Link>
       </li>
       <li>
-        <Link href="/about">About Us</Link>
+        <Link href="/dashboard/add-product">Add Product</Link>
       </li>
       <li>
-        <Link href="/support">Support</Link>
+        <Link href="/dashboard/manage-products">Manage Products</Link>
       </li>
     </>
   );
