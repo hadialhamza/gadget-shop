@@ -3,143 +3,189 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { PackagePlus, UploadCloud } from "lucide-react";
+
+// Shadcn UI Components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
 
 const AddProductPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  // সেশন চেক: লগইন না থাকলে লগইন পেজে পাঠাবে
+  // ১. সেশন চেক: লগইন না থাকলে লগইন পেজে রিডাইরেক্ট করবে
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
 
-  // ফর্ম হ্যান্ডলার
+  // ২. প্রোডাক্ট অ্যাড করার হ্যান্ডলার ফাংশন
   const handleAddProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const form = e.target;
-    const title = form.title.value;
-    const price = form.price.value;
-    const description = form.description.value;
-    const image = form.image.value;
-    const category = form.category.value;
+
+    // ফর্ম থেকে ডাটা নেওয়া
+    const productData = {
+      title: form.title.value,
+      price: form.price.value,
+      description: form.description.value,
+      image: form.image.value,
+      category: form.category.value,
+    };
 
     try {
       const res = await fetch("/api/products", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title, price, description, image, category }),
+        body: JSON.stringify(productData),
       });
 
       if (res.ok) {
-        alert("Product added successfully!"); // [Requirements: Show toast/message]
-        form.reset();
+        alert("Product added successfully! 🎉");
+        form.reset(); // ফর্ম ক্লিয়ার করা
+        router.refresh(); // ডাটা রিফ্রেশ করা
       } else {
-        throw new Error("Failed to add product");
+        alert("Failed to add product. Please try again.");
       }
-    } catch (error) {
-      console.log(error);
-      alert("Something went wrong");
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
 
-  if (status === "loading")
-    return <div className="text-center mt-20">Loading...</div>;
+  // লোডিং স্টেট হ্যান্ডেল করা (Auth চেক চলাকালীন)
+  if (status === "loading") {
+    return (
+      <div className="flex h-[80vh] items-center justify-center">
+        <div className="text-muted-foreground animate-pulse">
+          Checking authentication...
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-2xl mx-auto p-10">
-      <h2 className="text-3xl font-bold mb-6 text-center">Add New Product</h2>
-      <form
-        onSubmit={handleAddProduct}
-        className="card bg-base-100 shadow-xl p-8 space-y-4"
-      >
-        {/* Title */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Product Title</span>
-          </label>
-          <input
-            type="text"
-            name="title"
-            placeholder="Type here"
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
-
-        {/* Price & Category */}
-        <div className="flex gap-4">
-          <div className="form-control w-1/2">
-            <label className="label">
-              <span className="label-text">Price ($)</span>
-            </label>
-            <input
-              type="number"
-              name="price"
-              placeholder="99.99"
-              className="input input-bordered w-full"
-              required
-            />
+    <div className="container max-w-2xl mx-auto py-10 px-4">
+      <Card className="shadow-lg border-muted">
+        <CardHeader className="space-y-1 text-center">
+          <div className="flex justify-center mb-2">
+            <div className="p-3 bg-primary/10 rounded-full">
+              <PackagePlus className="w-8 h-8 text-primary" />
+            </div>
           </div>
-          <div className="form-control w-1/2">
-            <label className="label">
-              <span className="label-text">Category</span>
-            </label>
-            <input
-              type="text"
-              name="category"
-              placeholder="Headphones"
-              className="input input-bordered w-full"
-            />
-          </div>
-        </div>
+          <CardTitle className="text-2xl font-bold">Add New Gadget</CardTitle>
+          <CardDescription>
+            Enter the details of the new product to add it to your inventory.
+          </CardDescription>
+        </CardHeader>
 
-        {/* Image URL */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Image URL</span>
-          </label>
-          <input
-            type="url"
-            name="image"
-            placeholder="https://image.com/pic.jpg"
-            className="input input-bordered w-full"
-            required
-          />
-        </div>
+        <CardContent>
+          <form onSubmit={handleAddProduct} className="space-y-6">
+            {/* Title Input */}
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-sm font-medium">
+                Product Title
+              </Label>
+              <Input
+                id="title"
+                name="title"
+                placeholder="e.g. Sony WH-1000XM5 Headphones"
+                required
+                className="focus-visible:ring-primary"
+              />
+            </div>
 
-        {/* Description */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Description</span>
-          </label>
-          <textarea
-            name="description"
-            className="textarea textarea-bordered h-24"
-            placeholder="Product details..."
-            required
-          ></textarea>
-        </div>
+            {/* Price & Category Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="price">Price ($)</Label>
+                <Input
+                  id="price"
+                  name="price"
+                  type="number"
+                  placeholder="299.99"
+                  required
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <Input
+                  id="category"
+                  name="category"
+                  placeholder="e.g. Audio, Gaming"
+                  required
+                />
+              </div>
+            </div>
 
-        {/* Submit Button */}
-        <div className="form-control mt-6">
-          <button
-            type="submit"
-            className={`btn btn-primary ${loading ? "loading" : ""}`}
-            disabled={loading}
-          >
-            {loading ? "Adding..." : "Add Product"}
-          </button>
-        </div>
-      </form>
+            {/* Image URL Input */}
+            <div className="space-y-2">
+              <Label htmlFor="image">Product Image URL</Label>
+              <div className="relative">
+                <Input
+                  id="image"
+                  name="image"
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  required
+                  className="pl-10"
+                />
+                <UploadCloud className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Tip: You can host images on ImgBB and paste the link here.
+              </p>
+            </div>
+
+            {/* Description Textarea */}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                name="description"
+                placeholder="Write a detailed description about the product features..."
+                className="min-h-[120px] resize-y focus-visible:ring-primary"
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              className="w-full text-lg h-11"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="loading loading-spinner loading-sm"></span>{" "}
+                  Adding...
+                </span>
+              ) : (
+                "Add Product"
+              )}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };

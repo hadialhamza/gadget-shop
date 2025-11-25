@@ -6,7 +6,12 @@ import { ThemeProvider } from "next-themes";
 export function Providers({ children }) {
   return (
     <SessionProvider>
-      <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         {children}
       </ThemeProvider>
     </SessionProvider>

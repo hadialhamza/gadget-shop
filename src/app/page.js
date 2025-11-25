@@ -1,15 +1,16 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingBag, Truck, ShieldCheck, Headphones } from "lucide";
 import ProductCard from "@/components/ProductCard";
 
-// ডাটা ফেচিং ফাংশন (Server Side)
 async function getProducts() {
-  // ক্যাশ 'no-store' দেওয়া হয়েছে যাতে প্রতিবার নতুন ডাটা দেখায় (Real-time update)
-  // নোট: প্রোডাকশনে 'http://localhost:3000' এর বদলে আপনার ডোমেইন নেম ব্যবহার করতে হবে
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/products`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/api/products`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) return [];
     const data = await res.json();
     return data.products;
@@ -21,46 +22,84 @@ async function getProducts() {
 
 export default async function Home() {
   const products = await getProducts();
-  const featuredProducts = products.slice(0, 6); // প্রথম ৬টি প্রোডাক্ট [cite: 25
+  const featuredProducts = products.slice(0, 6);
   return (
     <main>
-      {/* Hero Section */}
-      <div className="hero min-h-[60vh] bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse gap-10">
-          <img
-            src="https://images.unsplash.com/photo-1550009158-9ebf69056955?w=600&q=80"
-            className="max-w-sm rounded-lg shadow-2xl"
-            alt="Hero Gadget"
-          />
-          <div>
-            <h1 className="text-5xl font-bold">Newest Gadgets Here!</h1>
-            <p className="py-6">
-              Find your favorite tech accessories at the best price.
+      {/* --- Modern Hero Section --- */}
+      <section className="relative py-20 md:py-32 overflow-hidden bg-background">
+        <div className="container px-4 md:px-8 mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+          {/* Text Content */}
+          <div className="flex-1 text-center lg:text-left space-y-6">
+            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">
+              New Arrivals 2025
+            </div>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+              Upgrade Your <br className="hidden lg:block" />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">
+                Digital Lifestyle
+              </span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
+              Discover cutting-edge gadgets designed to elevate your
+              productivity and entertainment. Experience technology like never
+              before.
             </p>
-            <Link href="/products" className="btn btn-primary">
-              Shop Now
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button size="lg" asChild>
+                <Link href="/products">Shop Now</Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/about">Learn More</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Hero Image */}
+          <div className="flex-1 relative">
+            <div className="relative z-10 bg-linear-to-tr from-blue-100 to-cyan-50 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500">
+              <img
+                src="https://as2.ae/wp-content/uploads/2024/10/Gadgets-Examples.webp"
+                alt="Hero Gadget"
+                className="w-full h-auto rounded-xl"
+              />
+            </div>
+            {/* Decorative Blur */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/20 blur-[100px] -z-10 rounded-full"></div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Featured Products Grid */}
-      <section className="py-16 px-4 md:px-12">
-        <h2 className="text-3xl font-bold text-center mb-10">Featured Items</h2>
+      {/* Featured Section */}
+      <section className="py-20 px-4 md:px-8 bg-slate-50 dark:bg-slate-950/50">
+        <div className="container mx-auto">
+          <div className="flex justify-between items-end mb-10">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight">
+                Featured Collections
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Handpicked gadgets just for you.
+              </p>
+            </div>
+            <Button variant="ghost" asChild className="hidden md:flex">
+              <Link href="/products">View All &rarr;</Link>
+            </Button>
+          </div>
 
-        {products.length === 0 ? (
-          <p className="text-center">
-            No products found. Add some from dashboard!
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
-        )}
-      </section>
 
+          <div className="mt-10 text-center md:hidden">
+            <Button variant="outline" asChild>
+              <Link href="/products">View All Products</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* --- SECTION 3: FEATURES / WHY CHOOSE US --- */}
       <section className="py-16 bg-base-200 px-4">
