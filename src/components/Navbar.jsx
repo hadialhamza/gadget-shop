@@ -95,7 +95,7 @@ const Navbar = () => {
                       <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 rounded-lg blur opacity-50 group-hover:opacity-60 transition-opacity" />
                       <ShoppingBag className="h-7 w-7 relative text-blue-500" />
                     </div>
-                    <span className="text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                    <span className="text-2xl font-heading font-bold bg-linear-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
                       NextGadget
                     </span>
                   </Link>
@@ -173,14 +173,16 @@ const Navbar = () => {
                     ) : (
                       <Button
                         asChild
-                        className="w-full bg-linear-to-r from-blue-500 to-cyan-500 hover:from-cyan-500/90 hover:to-blue-500/90"
+                        className="w-full btn-primary-custom bg-linear-to-r from-blue-500 to-cyan-500 hover:from-cyan-500/90 hover:to-blue-500/90"
                       >
                         <Link
                           href="/login"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <User className="h-4 w-4 mr-" />
-                          Login
+                          <span className="flex items-center gap-2">
+                            <User className="h-4 w-4" />
+                            Login
+                          </span>
                         </Link>
                       </Button>
                     )}
@@ -197,7 +199,7 @@ const Navbar = () => {
                 <ShoppingBag className="h-6 w-6 text-blue-600" />
               </div>
             </div>
-            <span className="text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="font-heading text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
               NextGadget
             </span>
           </Link>
@@ -218,7 +220,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-1 sm:gap-4 ml-1">
           {/* Theme Toggle */}
           {mounted && (
             <Button

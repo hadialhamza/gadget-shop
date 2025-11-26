@@ -1,9 +1,13 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* FONTS CONFIGURATION */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+
+  /* COLORS CONFIGURATION */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
