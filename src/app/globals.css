@@ -191,9 +191,7 @@
 
   /* 3. Outline Button */
   .btn-outline-custom {
-    @apply duration-300 relative z-10 rounded-full!;
-
-    border: 2px solid transparent;
+    @apply text-foreground! hover:text-white! transition duration-300 relative z-10 rounded-full! border-2 border-transparent overflow-hidden scale-100;
     background: linear-gradient(#fff, #fff) padding-box,
       linear-gradient(to right, #2563eb, #06b6d4) border-box;
   }
@@ -201,12 +199,26 @@
   .dark .btn-outline-custom {
     background: linear-gradient(#020817, #020817) padding-box,
       linear-gradient(to right, #2563eb, #06b6d4) border-box;
-    @apply text-white;
+  }
+
+  .btn-outline-custom span {
+    @apply relative z-10 transition-colors duration-300;
+  }
+
+  .btn-outline-custom::before {
+    content: "";
+    @apply absolute top-0 left-[-10%] w-[120%] h-full bg-blue-500 skew-x-30 transition-transform duration-300 ease-[cubic-bezier(0.5,1,0.8,1)] translate-x-[-120%] z-0;
+  }
+
+  .btn-outline-custom:hover::before {
+    @apply translate-x-0;
   }
 
   .btn-outline-custom:hover {
-    background: linear-gradient(to right, #2563eb, #06b6d4) padding-box,
-      linear-gradient(to right, #2563eb, #06b6d4) border-box;
-    @apply text-white!;
+    @apply bg-blue-500 shadow-lg border-blue-500 shadow-blue-500/30 scale-105;
+  }
+
+  .btn-outline-custom:active {
+    @apply translate-y-0.5 duration-100;
   }
 }

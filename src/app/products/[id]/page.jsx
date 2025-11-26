@@ -7,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // ডাটা ফেচিং ফাংশন (Server Side)
 const getBaseUrl = () => {
-  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  if (process.env.NEXTAUTH_URL) {
+    return `https://${process.env.NEXTAUTH_URL}`;
   }
   return "http://localhost:3000";
 };
