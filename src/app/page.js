@@ -27,7 +27,7 @@ export default async function Home() {
     <main>
       {/* --- Modern Hero Section --- */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-background">
-        <div className="container px-4 md:px-8 mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+        <div className="container px-2 sm:px-4 md:px-8 mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-left space-y-6">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary">
@@ -45,10 +45,16 @@ export default async function Home() {
               before.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" asChild>
-                <Link href="/products">Shop Now</Link>
+              <Button
+                size="lg"
+                asChild
+                className={"btn-primary-custom"}
+              >
+                <Link href="/products">
+                  <span>Shop Now</span>
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="" asChild className={'btn-outline-custom'}>
                 <Link href="/about">Learn More</Link>
               </Button>
             </div>

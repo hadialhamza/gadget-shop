@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
-// Shadcn Components
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,7 +28,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -52,35 +50,28 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "All Gadgets" },
-    { href: "/categories", label: "Categories" },
+    { href: "/dashboard/add-product", label: "Add Gadget" },
     { href: "/about", label: "About" },
   ];
 
   return (
     <nav
-      className={`
-      sticky top-0 z-50 w-full transition-all duration-300 ease-in-out
-      ${
+      className={`sticky top-0 z-50 w-full transition-all duration-500 ease-in-out${
         scrolled
-          ? "border-b bg-background/95 backdrop-blur-xl shadow-sm py-0"
+          ? "border-b shadow-md py-0 bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent bg-linear-to-r from-background via-background/95 to-background py-2"
       }
     `}
     >
-      {/* Animated Background linear */}
-      <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-purple-500/5 to-blue-500/5 opacity-0 transition-opacity duration-500 hover:opacity-100" />
-
-      <div className="container relative flex h-16 items-center justify-between px-4 md:px-8">
-        {/* Logo & Desktop Menu */}
-        <div className="flex items-center gap-8">
-          {/* Mobile Menu */}
+      <div className="container mx-auto relative flex items-center justify-between px-2 sm:px-4 py-3">
+        <div className="flex items-center gap-1">
           <div className="md:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
-                  className="relative h-9 w-9"
+                  className="relative h-9 w-9 rounded-full"
                 >
                   {mobileMenuOpen ? (
                     <X className="h-5 w-5 transition-transform duration-200" />
@@ -91,42 +82,35 @@ const Navbar = () => {
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="w-80 border-r-0 bg-background/95 backdrop-blur-xl"
+                className="w-80 border-r-0 bg-background/90 backdrop-blur-xl"
               >
-                <div className="flex flex-col gap-8 mt-8 px-2">
-                  {/* Logo in Mobile Menu */}
+                <div className="flex flex-col gap-6 mt-8 px-2">
+                  {/* Small device Menu logo*/}
                   <Link
                     href="/"
-                    className="flex items-center gap-3 group"
+                    className="flex items-center gap-3 group ml-5"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <div className="relative">
-                      <div className="absolute inset-0 bg-linear-to-r from-primary to-purple-500 rounded-lg blur opacity-75 group-hover:opacity-100 transition-opacity" />
-                      <ShoppingBag className="h-7 w-7 relative text-white" />
+                      <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 rounded-lg blur opacity-50 group-hover:opacity-60 transition-opacity" />
+                      <ShoppingBag className="h-7 w-7 relative text-blue-500" />
                     </div>
-                    <span className="text-xl font-bold bg-linear-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                      GadgetShop
+                    <span className="text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                      NextGadget
                     </span>
-                    <Badge
-                      variant="secondary"
-                      className="ml-2 bg-linear-to-r from-green-400 to-blue-500 text-white border-0"
-                    >
-                      <Sparkles className="h-3 w-3 mr-1" />
-                      New
-                    </Badge>
                   </Link>
 
                   {/* Mobile Navigation Links */}
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col">
                     {navLinks.map((link, index) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="flex items-center gap-3 text-lg font-medium p-3 rounded-xl hover:bg-accent transition-all duration-200 hover:translate-x-2 group"
+                        className="flex items-center gap-3 font-medium p-3 rounded-xl hover:bg-accent transition-all duration-200 hover:translate-x-2 group"
                         onClick={() => setMobileMenuOpen(false)}
                         style={{ animationDelay: `${index * 100}ms` }}
                       >
-                        <div className="w-1 h-6 bg-linear-to-b from-primary to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="w-1 h-6 bg-linear-to-b from-blue-500 to-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                         {link.label}
                       </Link>
                     ))}
@@ -142,7 +126,7 @@ const Navbar = () => {
                               src={session.user?.image}
                               alt={session.user?.name}
                             />
-                            <AvatarFallback className="bg-linear-to-r from-primary to-purple-500 text-white">
+                            <AvatarFallback className="bg-linear-to-r from-blue-500 to-cyan-500 text-white">
                               {session.user?.name?.charAt(0)}
                             </AvatarFallback>
                           </Avatar>
@@ -158,7 +142,7 @@ const Navbar = () => {
 
                         <Link
                           href="/dashboard/add-product"
-                          className="flex items-center gap-3 p-3 rounded-xl hover:bg-accent transition-all duration-200"
+                          className="flex items-center font-medium gap-3 p-3 rounded-xl hover:bg-accent transition-all duration-200"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           <PackagePlus className="h-5 w-5 text-primary" />
@@ -167,7 +151,7 @@ const Navbar = () => {
 
                         <Link
                           href="/dashboard/manage-products"
-                          className="flex items-center gap-3 p-3 rounded-xl hover:bg-accent transition-all duration-200"
+                          className="flex items-center font-medium gap-3 p-3 rounded-xl hover:bg-accent transition-all duration-200"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           <LayoutDashboard className="h-5 w-5 text-primary" />
@@ -180,7 +164,7 @@ const Navbar = () => {
                             signOut();
                             setMobileMenuOpen(false);
                           }}
-                          className="justify-start gap-3 p-3 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
+                          className="text-base justify-start gap-3 p-3 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl"
                         >
                           <LogOut className="h-5 w-5" />
                           Log out
@@ -189,13 +173,13 @@ const Navbar = () => {
                     ) : (
                       <Button
                         asChild
-                        className="w-full bg-linear-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90"
+                        className="w-full bg-linear-to-r from-blue-500 to-cyan-500 hover:from-cyan-500/90 hover:to-blue-500/90"
                       >
                         <Link
                           href="/login"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <User className="h-4 w-4 mr-2" />
+                          <User className="h-4 w-4 mr-" />
                           Login
                         </Link>
                       </Button>
@@ -205,51 +189,43 @@ const Navbar = () => {
               </SheetContent>
             </Sheet>
           </div>
-
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 bg-linear-to-r from-primary to-purple-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative hidden sm:flex">
+              <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative bg-background p-1.5 rounded-lg">
-                <ShoppingBag className="h-6 w-6 bg-linear-to-r from-primary to-purple-500 bg-clip-text text-transparent" />
+                <ShoppingBag className="h-6 w-6 text-blue-600" />
               </div>
             </div>
-            <span className="text-2xl font-bold bg-linear-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-              GadgetShop
+            <span className="text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+              NextGadget
             </span>
-            <Badge
-              variant="secondary"
-              className="ml-2 bg-linear-to-r from-green-400 to-blue-500 text-white border-0 hidden sm:flex"
-            >
-              <Sparkles className="h-3 w-3 mr-1" />
-              New
-            </Badge>
           </Link>
+        </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-primary group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-primary to-purple-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10" />
-              </Link>
-            ))}
-          </div>
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="relative px-4 py-1 text-sm font-medium transition-all duration-200 hover:text-primary group"
+            >
+              {link.label}
+              <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-linear-to-r from-blue-600 to-cyan-500 transition-all duration-300 group-hover:w-4/5 group-hover:left-1/10" />
+            </Link>
+          ))}
         </div>
 
         {/* Right Side Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Theme Toggle */}
           {mounted && (
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="relative h-9 w-9 rounded-lg transition-all duration-200 hover:scale-105 hover:bg-accent"
+              className="relative h-9 w-9 rounded-full transition-all duration-200 hover:scale-105 hover:bg-accent border"
             >
               <div className="relative">
                 <Sun className="h-5 w-5 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
@@ -272,7 +248,7 @@ const Navbar = () => {
                       src={session.user?.image}
                       alt={session.user?.name}
                     />
-                    <AvatarFallback className="bg-linear-to-r from-primary to-purple-500 text-white text-sm">
+                    <AvatarFallback className="bg-linear-to-r from-blue-600 to-cyan-500 text-white text-sm">
                       {session.user?.name?.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
@@ -359,7 +335,7 @@ const Navbar = () => {
           ) : (
             <Button
               asChild
-              className="bg-linear-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+              className="text-white bg-linear-to-r from-blue-500 to-cyan-500 hover:from-blue-500/90 hover:to-cyan-500/90 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105"
             >
               <Link href="/login" className="flex items-center gap-2">
                 <User className="h-4 w-4" />

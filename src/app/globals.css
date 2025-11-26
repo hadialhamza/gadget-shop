@@ -129,5 +129,86 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* --- CUSTOM BUTTONS --- */
+@layer components {
+  /* 1. Primary Button */
+  .btn-primary-custom {
+    @apply relative overflow-hidden text-white! rounded-full! transition-colors duration-500 ease-in-out;
+
+    /* Background Gradient */
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    box-shadow: 0px 4px 15px rgba(37, 99, 235, 0.4);
+  }
+
+  .btn-primary-custom span {
+    @apply relative z-10 transition-colors duration-500;
+  }
+
+  .btn-primary-custom:hover span {
+    @apply text-white;
+  }
+
+  .btn-primary-custom::before {
+    content: "";
+    @apply absolute top-0 left-[-10%] w-[120%] h-full bg-blue-700 skew-x-30 transition-transform duration-400 ease-[cubic-bezier(0.5,1,0.8,1)] translate-x-[-120%] z-0;
+  }
+
+  .btn-primary-custom:hover::before {
+    @apply translate-x-0;
+  }
+  .btn-primary-custom:active {
+    @apply text-white translate-y-0.5 duration-100;
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    box-shadow: none;
+  }
+
+  /* 2. Secondary Button */
+  .btn-secondary-custom {
+    @apply rounded-full! transition-all duration-500 ease-in-out;
+  }
+
+  .btn-secondary-custom:hover {
+    @apply text-white!;
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    box-shadow: 0px 7px 29px rgba(37, 99, 235, 0.5);
+  }
+
+  .btn-secondary-custom:active {
+    @apply text-white translate-y-2.5 duration-100;
+    background: linear-gradient(to right, #2563eb, #06b6d4);
+    box-shadow: none;
+  }
+
+  /* 3. Outline Button */
+  .btn-outline-custom {
+    @apply duration-300 relative z-10 rounded-full!;
+
+    border: 2px solid transparent;
+    background: linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(to right, #2563eb, #06b6d4) border-box;
+  }
+
+  .dark .btn-outline-custom {
+    background: linear-gradient(#020817, #020817) padding-box,
+      linear-gradient(to right, #2563eb, #06b6d4) border-box;
+    @apply text-white;
+  }
+
+  .btn-outline-custom:hover {
+    background: linear-gradient(to right, #2563eb, #06b6d4) padding-box,
+      linear-gradient(to right, #2563eb, #06b6d4) border-box;
+    @apply text-white!;
   }
 }
