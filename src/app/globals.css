@@ -149,15 +149,11 @@
 @layer components {
   /* 1. Primary Button */
   .btn-primary-custom {
-    @apply relative overflow-hidden text-white! rounded-full! transition-colors duration-500 ease-in-out;
-
-    /* Background Gradient */
-    background: linear-gradient(to right, #2563eb, #06b6d4);
-    box-shadow: 0px 4px 15px rgba(37, 99, 235, 0.4);
+    @apply relative overflow-hidden bg-linear-to-r from-blue-500 to-cyan-500 hover:from-blue-500/90 hover:to-cyan-500/90 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-103 text-white! rounded-full! ease-in-out;
   }
 
   .btn-primary-custom span {
-    @apply relative z-10 transition-colors duration-500;
+    @apply relative z-10 transition-colors duration-300;
   }
 
   .btn-primary-custom:hover span {
@@ -166,7 +162,7 @@
 
   .btn-primary-custom::before {
     content: "";
-    @apply absolute top-0 left-[-10%] w-[120%] h-full bg-blue-700 skew-x-30 transition-transform duration-400 ease-[cubic-bezier(0.5,1,0.8,1)] translate-x-[-120%] z-0;
+    @apply absolute top-0 left-[-10%] w-[120%] h-full bg-blue-700 skew-x-30 transition-transform duration-300 ease-[cubic-bezier(0.5,1,0.8,1)] translate-x-[-120%] z-0;
   }
 
   .btn-primary-custom:hover::before {
@@ -174,8 +170,6 @@
   }
   .btn-primary-custom:active {
     @apply text-white translate-y-0.5 duration-100;
-    background: linear-gradient(to right, #2563eb, #06b6d4);
-    box-shadow: none;
   }
 
   /* 2. Secondary Button */

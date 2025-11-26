@@ -1,19 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { useTheme } from "next-themes";
 import {
   ShoppingBag,
   Menu,
   X,
   User,
-  Sun,
-  Moon,
   LogOut,
   LayoutDashboard,
   PackagePlus,
   ChevronDown,
-  Sparkles,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -26,19 +22,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
@@ -56,12 +56,11 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-500 ease-in-out${
+      className={`sticky top-0 z-50 w-full transition-all duration-500 ease-in-out ${
         scrolled
           ? "border-b shadow-md py-0 bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent bg-linear-to-r from-background via-background/95 to-background py-2"
-      }
-    `}
+      }`}
     >
       <div className="container mx-auto relative flex items-center justify-between px-2 sm:px-4 py-3">
         <div className="flex items-center gap-1">
@@ -71,7 +70,7 @@ const Navbar = () => {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="relative h-9 w-9 rounded-full"
+                  className="relative h-9 w-9 rounded-full sm:mr-1.5"
                 >
                   {mobileMenuOpen ? (
                     <X className="h-5 w-5 transition-transform duration-200" />
@@ -84,7 +83,14 @@ const Navbar = () => {
                 side="left"
                 className="w-80 border-r-0 bg-background/90 backdrop-blur-xl"
               >
-                <div className="flex flex-col gap-6 mt-8 px-2">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                  <SheetDescription className="sr-only">
+                    Navigation links
+                  </SheetDescription>
+                </SheetHeader>
+
+                <div className="flex flex-col gap-6 px-2">
                   {/* Small device Menu logo*/}
                   <Link
                     href="/"
@@ -173,14 +179,14 @@ const Navbar = () => {
                     ) : (
                       <Button
                         asChild
-                        className="w-full btn-primary-custom bg-linear-to-r from-blue-500 to-cyan-500 hover:from-cyan-500/90 hover:to-blue-500/90"
+                        className="w-11/12 block mx-auto btn-primary-custom"
                       >
                         <Link
                           href="/login"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <span className="flex items-center gap-2">
-                            <User className="h-4 w-4" />
+                          <span className="flex items-center gap-2 justify-center">
+                            <User />
                             Login
                           </span>
                         </Link>
@@ -196,7 +202,7 @@ const Navbar = () => {
             <div className="relative hidden sm:flex">
               <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative bg-background p-1.5 rounded-lg">
-                <ShoppingBag className="h-6 w-6 text-blue-600" />
+                <ShoppingBag className="h-6 w-6 text-blue-600 group-hover:rotate-y-180 transition-transform duration-600" />
               </div>
             </div>
             <span className="font-heading text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
@@ -221,21 +227,7 @@ const Navbar = () => {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-1 sm:gap-4 ml-1">
-          {/* Theme Toggle */}
-          {mounted && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="relative h-9 w-9 rounded-full transition-all duration-200 hover:scale-105 hover:bg-accent border"
-            >
-              <div className="relative">
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute top-0 left-0 h-5 w-5 rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
-              </div>
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-          )}
+          <ThemeToggle />
 
           {/* Auth Menu */}
           {session ? (
@@ -335,13 +327,12 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button
-              asChild
-              className="text-white bg-linear-to-r from-blue-500 to-cyan-500 hover:from-blue-500/90 hover:to-cyan-500/90 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105"
-            >
-              <Link href="/login" className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                Login
+            <Button asChild className="btn-primary-custom">
+              <Link href="/login">
+                <span className="flex items-center gap-1 sm:gap-2">
+                  <User />
+                  Login
+                </span>
               </Link>
             </Button>
           )}
