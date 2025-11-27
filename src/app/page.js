@@ -29,8 +29,10 @@ export default async function Home() {
   const featuredProducts = products.slice(0, 6);
   return (
     <main>
-      <HeroSection/>
-      {/* <FeaturesSection/> */}
+      <HeroSection />
+      <FeaturedProducts featuredProducts={featuredProducts} />
+      <FeaturesSection />
+
       {/* <PromoSection/> */}
       {/* <FeaturedProducts/> */}
       {/* --- Modern Hero Section --- */}

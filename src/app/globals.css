@@ -222,3 +222,17 @@
     @apply translate-y-0.5 duration-100;
   }
 }
+
+/* Custom Title */
+.title-custom {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold text-foreground;
+  font-family: var(--font-heading);
+}
+
+.title-custom span {
+  @apply text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 bg-size-[200%_auto];
+}
+
+.subtitle {
+  @apply md:text-lg text-muted-foreground leading-relaxed;
+}

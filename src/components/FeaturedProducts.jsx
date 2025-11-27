@@ -1,50 +1,94 @@
+"use client";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import ProductCard from "@/components/ProductCard"; // আপনার আগের কার্ড কম্পোনেন্ট
+import ProductCard from "@/components/ProductCard";
+import { ArrowRight, Sparkles } from "lucide-react";
 
-const FeaturedSection = ({ products }) => {
+export default function FeaturedProducts({ featuredProducts }) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
   return (
-    <section className="py-24 px-4 md:px-8 bg-slate-50/50 dark:bg-slate-950/50">
+    <section className="py-10 px-4 md:px-8 bg-background mb-5">
       <div className="container mx-auto">
-        
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-          <div className="space-y-2 text-center md:text-left w-full md:w-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Featured <span className="text-blue-600 dark:text-blue-400">Collections</span>
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Handpicked premium gadgets just for you.
-            </p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
+            <span>Featured Collection</span>
           </div>
-          
-          <Link href="/products" className="hidden md:flex group items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
-            View All Products <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
 
-        {products?.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-dashed">
-            <p className="text-muted-foreground">No products available at the moment.</p>
-          </div>
-        )}
+          <h2 className="title-custom my-6">
+            Handpicked
+            <span> For You</span>
+          </h2>
+          <p className="max-w-2xl mx-auto subtitle">
+            Discover our carefully curated selection of premium gadgets that
+            combine innovation, style, and performance.
+          </p>
+        </motion.div>
 
-        <div className="mt-12 text-center md:hidden">
-          <Link href="/products">
-            <button className="btn-outline-custom w-full">
-              View All
-            </button>
-          </Link>
-        </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-12"
+        >
+          {featuredProducts.map((product, index) => (
+            <motion.div
+              key={product._id}
+              variants={itemVariants}
+              whileHover={{ y: -8 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ProductCard product={product} variant="featured" />
+            </motion.div>
+          ))}
+        </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Button asChild size="lg" className="btn-primary-custom group">
+            <Link href="/products">
+              <span className="flex items-center gap-2">
+                View All Products
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 duration-300" />
+              </span>
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default FeaturedSection;
+}

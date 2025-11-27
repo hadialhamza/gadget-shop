@@ -70,7 +70,7 @@ const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-background py-12 lg:pt-0">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-background pt-10 pb-22 lg:pt-16">
       {/* Background Decorative Blobs */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />
@@ -104,13 +104,13 @@ const HeroSection = () => {
                 {/* Title */}
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
                   {heroSlides[activeIndex].title} <br />
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 bg-size-[200%_auto] animate-linear">
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 bg-size-[200%_auto]">
                     {heroSlides[activeIndex].highlight}
                   </span>
                 </h1>
 
                 {/* Description */}
-                <p className="md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="subtitle">
                   {heroSlides[activeIndex].description}
                 </p>
 
@@ -121,7 +121,10 @@ const HeroSection = () => {
                   transition={{ delay: 0.4 }}
                   className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                 >
-                  <Button className="btn-primary-custom group" asChild>
+                  <Button
+                    className="btn-primary-custom group py-5 px-8"
+                    asChild
+                  >
                     <Link href="/products">
                       <span className="flex items-center justify-center gap-2">
                         Shop Now{" "}
@@ -130,7 +133,7 @@ const HeroSection = () => {
                     </Link>
                   </Button>
 
-                  <Button className="btn-outline-custom" asChild>
+                  <Button className="btn-outline-custom py-4.5 px-8" asChild>
                     <Link href="/about">
                       <span>Explore</span>
                     </Link>
