@@ -67,7 +67,7 @@ const features = [
   },
 ];
 
-export default function FeaturesSection() {
+export default function WhyChooseSection() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -91,7 +91,7 @@ export default function FeaturesSection() {
   };
 
   return (
-    <section className="py-20 px-4 md:px-8 bg-slate-50 dark:bg-slate-900/50">
+    <section className="py-20 px-4 md:px-8 bg-background">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -100,10 +100,10 @@ export default function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
-            Why Choose GadgetShop?
+          <h2 className="title-custom mb-4">
+            Why Choose <span>NextShop?</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="subtitle max-w-2xl mx-auto">
             We are committed to providing the best shopping experience with
             premium services and customer care.
           </p>
@@ -127,14 +127,12 @@ export default function FeaturesSection() {
               }}
               className="group relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
             >
-              {/* Gradient Border Effect */}
               <div
-                className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+                className={`absolute inset-0 bg-linear-to-r ${feature.gradient} rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
               />
 
-              {/* Icon */}
               <div
-                className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${feature.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                className={`inline-flex p-3 rounded-xl bg-linear-to-r ${feature.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
               >
                 <feature.icon className="w-6 h-6" />
               </div>
@@ -146,15 +144,13 @@ export default function FeaturesSection() {
                 {feature.description}
               </p>
 
-              {/* Hover Effect Line */}
               <div
-                className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r ${feature.gradient} group-hover:w-4/5 transition-all duration-300 rounded-full`}
+                className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-linear-to-r ${feature.gradient} group-hover:w-4/5 transition-all duration-300 rounded-full`}
               />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -173,7 +169,7 @@ export default function FeaturesSection() {
               whileHover={{ scale: 1.05 }}
               className="p-6"
             >
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
+              <div className="text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
                 {stat.number}
               </div>
               <div className="text-sm text-muted-foreground font-medium">

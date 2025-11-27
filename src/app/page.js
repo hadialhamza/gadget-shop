@@ -4,8 +4,7 @@ import { ShoppingBag, Truck, ShieldCheck, Headphones } from "lucide";
 import ProductCard from "@/components/ProductCard";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
-import FeaturesSection from "@/components/FeaturesSection";
-import PromoSection from "@/components/PromoSection";
+import WhyChooseSection from "@/components/WhyChooseSection";
 
 async function getProducts() {
   try {
@@ -31,7 +30,7 @@ export default async function Home() {
     <main>
       <HeroSection />
       <FeaturedProducts featuredProducts={featuredProducts} />
-      <FeaturesSection />
+      <WhyChooseSection />
 
       {/* <PromoSection/> */}
       {/* <FeaturedProducts/> */}

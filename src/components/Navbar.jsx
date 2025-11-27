@@ -205,8 +205,11 @@ const Navbar = () => {
                 <ShoppingBag className="h-6 w-6 text-blue-600 group-hover:rotate-y-180 transition-transform duration-600" />
               </div>
             </div>
-            <span className="font-heading text-2xl font-bold bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-              NextGadget
+            <span className="font-heading text-2xl font-bold">
+              Next
+              <span className="bg-linear-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                Gadget
+              </span>
             </span>
           </Link>
         </div>
