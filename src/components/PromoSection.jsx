@@ -13,7 +13,7 @@ export default function PromoSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="relative bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 rounded-3xl p-8 md:p-16 text-white shadow-2xl shadow-blue-500/25 overflow-hidden"
+          className="relative bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 rounded-3xl p-8 md:p-16 text-white shadow-2xl shadow-blue-500/25 overflow-hidden"
         >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
@@ -76,7 +76,7 @@ export default function PromoSection() {
               className="text-4xl md:text-6xl font-bold mb-6"
             >
               Winter Sale{" "}
-              <span className="bg-gradient-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent">
                 Is Live!
               </span>
             </motion.h2>

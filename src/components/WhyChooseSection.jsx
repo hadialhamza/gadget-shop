@@ -10,6 +10,7 @@ import {
   Award,
   Users,
 } from "lucide-react";
+import StatsSection from "./StatsSection";
 
 const features = [
   {
@@ -150,34 +151,7 @@ export default function WhyChooseSection() {
             </motion.div>
           ))}
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
-        >
-          {[
-            { number: "50K+", label: "Happy Customers" },
-            { number: "2K+", label: "Products" },
-            { number: "24/7", label: "Support" },
-            { number: "98%", label: "Satisfaction" },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              className="p-6"
-            >
-              <div className="text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
-                {stat.number}
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <StatsSection />
       </div>
     </section>
   );
