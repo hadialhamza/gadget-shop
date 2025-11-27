@@ -4,9 +4,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  PackagePlus, 
-  UploadCloud, 
+import {
+  PackagePlus,
+  UploadCloud,
   Image as ImageIcon,
   DollarSign,
   Tag,
@@ -14,7 +14,7 @@ import {
   ArrowLeft,
   Sparkles,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 
 // Shadcn UI Components
@@ -56,7 +56,7 @@ const AddProductPage = () => {
   // Handle image URL changes for preview
   const handleImageChange = (e) => {
     const url = e.target.value;
-    setFormData(prev => ({ ...prev, image: url }));
+    setFormData((prev) => ({ ...prev, image: url }));
     if (url) {
       setImagePreview(url);
     }
@@ -106,7 +106,7 @@ const AddProductPage = () => {
   // Handle form submission
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -153,7 +153,9 @@ const AddProductPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600 dark:text-slate-400">Checking authentication...</p>
+          <p className="text-slate-600 dark:text-slate-400">
+            Checking authentication...
+          </p>
         </div>
       </div>
     );
@@ -164,9 +166,9 @@ const AddProductPage = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -175,9 +177,9 @@ const AddProductPage = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
@@ -198,7 +200,7 @@ const AddProductPage = () => {
             <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Dashboard
           </Button>
-          
+
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-lg">
               <PackagePlus className="w-8 h-8 text-white" />
@@ -227,7 +229,10 @@ const AddProductPage = () => {
                 <form onSubmit={handleAddProduct} className="space-y-6">
                   {/* Title Input */}
                   <motion.div variants={itemVariants} className="space-y-3">
-                    <Label htmlFor="title" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <Label
+                      htmlFor="title"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                    >
                       Product Title *
                     </Label>
                     <div className="relative">
@@ -235,7 +240,12 @@ const AddProductPage = () => {
                         id="title"
                         name="title"
                         value={formData.title}
-                        onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            title: e.target.value,
+                          }))
+                        }
                         placeholder="e.g., Sony WH-1000XM5 Wireless Noise Canceling Headphones"
                         className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                         required
@@ -251,9 +261,15 @@ const AddProductPage = () => {
                   </motion.div>
 
                   {/* Price & Category Row */}
-                  <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <motion.div
+                    variants={itemVariants}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                  >
                     <div className="space-y-3">
-                      <Label htmlFor="price" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      <Label
+                        htmlFor="price"
+                        className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                      >
                         Price ($) *
                       </Label>
                       <div className="relative">
@@ -262,7 +278,12 @@ const AddProductPage = () => {
                           name="price"
                           type="number"
                           value={formData.price}
-                          onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              price: e.target.value,
+                            }))
+                          }
                           placeholder="299.99"
                           min="0"
                           step="0.01"
@@ -280,7 +301,10 @@ const AddProductPage = () => {
                     </div>
 
                     <div className="space-y-3">
-                      <Label htmlFor="category" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      <Label
+                        htmlFor="category"
+                        className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                      >
                         Category *
                       </Label>
                       <div className="relative">
@@ -288,7 +312,12 @@ const AddProductPage = () => {
                           id="category"
                           name="category"
                           value={formData.category}
-                          onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              category: e.target.value,
+                            }))
+                          }
                           placeholder="e.g., Audio, Gaming, Smart Home"
                           className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                           required
@@ -306,7 +335,10 @@ const AddProductPage = () => {
 
                   {/* Image URL Input */}
                   <motion.div variants={itemVariants} className="space-y-3">
-                    <Label htmlFor="image" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <Label
+                      htmlFor="image"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                    >
                       Product Image URL *
                     </Label>
                     <div className="relative">
@@ -329,13 +361,17 @@ const AddProductPage = () => {
                       </p>
                     )}
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      💡 Tip: Upload images to ImgBB or similar services and paste the direct link here
+                      💡 Tip: Upload images to ImgBB or similar services and
+                      paste the direct link here
                     </p>
                   </motion.div>
 
                   {/* Description Textarea */}
                   <motion.div variants={itemVariants} className="space-y-3">
-                    <Label htmlFor="description" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <Label
+                      htmlFor="description"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                    >
                       Product Description *
                     </Label>
                     <div className="relative">
@@ -343,7 +379,12 @@ const AddProductPage = () => {
                         id="description"
                         name="description"
                         value={formData.description}
-                        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            description: e.target.value,
+                          }))
+                        }
                         placeholder="Describe your product in detail. Include features, specifications, and what makes it special..."
                         className="min-h-[140px] resize-y pl-11 pr-4 py-3 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                         required
@@ -398,7 +439,9 @@ const AddProductPage = () => {
                         className="flex items-center gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
                       >
                         <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
-                        <p className="text-sm text-red-700 dark:text-red-300 font-medium">{errors.submit}</p>
+                        <p className="text-sm text-red-700 dark:text-red-300 font-medium">
+                          {errors.submit}
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -454,11 +497,13 @@ const AddProductPage = () => {
                   "Write detailed and compelling descriptions",
                   "Set competitive pricing based on market research",
                   "Choose relevant categories for better discovery",
-                  "Include key features and specifications"
+                  "Include key features and specifications",
                 ].map((tip, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-slate-700 dark:text-slate-300">{tip}</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-300">
+                      {tip}
+                    </span>
                   </div>
                 ))}
               </CardContent>
