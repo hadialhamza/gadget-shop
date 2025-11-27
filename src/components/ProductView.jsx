@@ -1,4 +1,4 @@
-"use client"; // এটি ক্লায়েন্ট কম্পোনেন্ট
+"use client";
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 import { Search, Filter } from "lucide-react";
@@ -7,13 +7,11 @@ const ProductView = ({ products }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // ইউনিক ক্যাটাগরি বের করা (অপশনাল, আপনি চাইলে হার্ডকোডও রাখতে পারেন)
   const categories = [
     "All",
     ...new Set(products.map((p) => p.category || "General")),
   ];
 
-  // ফিল্টারিং লজিক
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.title
       .toLowerCase()
@@ -25,12 +23,12 @@ const ProductView = ({ products }) => {
   });
 
   return (
-    <div className="min-h-screen bg-base-100 py-12 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-background py-12 px-4 md:px-8">
+      <div className="container mx-auto">
         {/* Header Section */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold mb-3 text-primary">All Gadgets</h1>
-          <p className="text-gray-500 max-w-2xl mx-auto">
+          <h1 className="title-primary">All Gadgets</h1>
+          <p className="subtitle">
             Explore our exclusive collection. Use the search bar to find exactly
             what you need.
           </p>

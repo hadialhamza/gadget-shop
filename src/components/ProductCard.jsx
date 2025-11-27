@@ -20,24 +20,21 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
-  // Calculate discount percentage
   const discount = product.originalPrice
     ? Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100
       )
     : 0;
 
-  // Generate random rating between 4.0 and 5.0
-  const rating = product.rating || (4 + Math.random()).toFixed(1);
-  const reviewCount =
-    product.reviewCount || Math.floor(Math.random() * 500) + 50;
+  const rating = product.rating;
+  const reviewCount = product.reviewCount;
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.3 },
     },
     hover: {
       y: -8,
@@ -58,31 +55,31 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      whileHover="hover"
+      whileHover={{ y: -6 }}
       viewport={{ once: true }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className={`group relative bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-700 ${className}`}
+      className={`group relative bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 ${className}`}
     >
-      {/* Background Gradient Effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 dark:from-blue-950/20 dark:to-cyan-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Background linear Effect */}
+      <div className="absolute inset-0 bg-linear-to-br from-blue-50/50 to-cyan-50/50 dark:from-blue-950/20 dark:to-cyan-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Image Container */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-64 w-full overflow-hidden">
         {/* Badges */}
         <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
           {discount > 0 && (
-            <Badge className="bg-gradient-to-r from-red-500 to-pink-500 text-white border-0 shadow-lg">
+            <Badge className="bg-linear-to-r from-red-500 to-pink-500 text-white border-0 shadow-lg">
               -{discount}%
             </Badge>
           )}
           {product.isNew && (
-            <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0 shadow-lg">
+            <Badge className="bg-linear-to-r from-green-500 to-emerald-500 text-white border-0 shadow-lg">
               New
             </Badge>
           )}
           {product.isFeatured && (
-            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg">
+            <Badge className="bg-linear-to-r from-purple-500 to-pink-500 text-white border-0 shadow-lg">
               Featured
             </Badge>
           )}
@@ -91,7 +88,7 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
         {/* Action Buttons */}
         <div
           className={`absolute top-4 right-4 z-10 flex flex-col gap-2 transition-all duration-300 ${
-            isHovered ? "translate-x-0" : "translate-x-12"
+            isHovered ? "translate-x-0" : "translate-x-14"
           }`}
         >
           <Button
@@ -106,32 +103,33 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
               }`}
             />
           </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="h-10 w-10 rounded-xl bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white hover:scale-110 transition-all duration-200"
-          >
-            <Eye className="h-4 w-4 text-slate-600" />
-          </Button>
+          <Link href={`/products/${product._id}`}>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="h-10 w-10 rounded-xl bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white hover:scale-110 transition-all duration-200"
+            >
+              <Eye className="h-4 w-4 text-slate-600" />
+            </Button>
+          </Link>
         </div>
 
         {/* Product Image */}
         <div className="relative h-full w-full">
-          <Image
-            src={product.image || "/api/placeholder/400/400"}
+          <img
+            src={product.image}
             alt={product.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-300 group-hover:scale-110 h-full w-full"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
 
           {/* Overlay on Hover */}
           <div
-            className={`absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+            className={`absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
           />
 
           {/* Quick Add to Cart */}
-          <div
+          {/* <div
             className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
               isHovered
                 ? "translate-y-0 opacity-100"
@@ -142,7 +140,7 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add to Cart
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -152,7 +150,7 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
         <div className="flex items-center justify-between mb-3">
           <Badge
             variant="outline"
-            className="text-xs font-medium text-slate-500"
+            className="text-xs font-medium dark:text-slate-300 border-blue-500"
           >
             {product.category || "Electronics"}
           </Badge>
@@ -165,7 +163,7 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
 
         {/* Product Name */}
         <h3 className="font-semibold text-slate-800 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
-          {product.name}
+          {product.title}
         </h3>
 
         {/* Description */}
@@ -205,10 +203,11 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
 
           <Link href={`/products/${product._id}`}>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               className="rounded-full group/btn hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/50"
             >
+              <span>View Details</span>
               <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
             </Button>
           </Link>
@@ -216,7 +215,7 @@ const ProductCard = ({ product, variant = "default", className = "" }) => {
       </div>
 
       {/* Hover Border Effect */}
-      <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-all duration-500 pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-all duration-300 pointer-events-none" />
     </motion.div>
   );
 };
@@ -229,10 +228,9 @@ const MinimalProductCard = ({ product }) => {
       className="group bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 dark:border-slate-700"
     >
       <div className="relative h-48 mb-4 rounded-xl overflow-hidden">
-        <Image
+        <img
           src={product.image}
           alt={product.name}
-          fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {product.originalPrice && (
@@ -269,26 +267,25 @@ const FeaturedProductCard = ({ product }) => {
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
-      className="group relative bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl overflow-hidden shadow-2xl"
+      className="group relative bg-linear-to-br from-blue-500 to-cyan-500 rounded-3xl overflow-hidden shadow-2xl"
     >
       <div className="relative h-80 overflow-hidden">
-        <Image
+        <img
           src={product.image}
           alt={product.name}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
+          className="object-cover group-hover:scale-110 transition-transform duration-300 h-full w-full"
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent" />
 
         {/* Content */}
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <Badge className="mb-3 bg-white/20 backdrop-blur-sm text-white border-0">
-            Featured
+            {product.category}
           </Badge>
 
-          <h3 className="text-xl font-bold mb-2">{product.name}</h3>
+          <h3 className="text-xl font-bold mb-2">{product.title}</h3>
           <p className="text-blue-100 text-sm mb-4 line-clamp-2">
             {product.description}
           </p>
@@ -302,11 +299,12 @@ const FeaturedProductCard = ({ product }) => {
                 </span>
               )}
             </div>
-
-            <Button className="bg-white text-blue-600 hover:bg-blue-50 rounded-full">
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Buy Now
-            </Button>
+            <Link href={`/products/${product._id}`}>
+              <Button className="bg-white text-blue-600 hover:bg-blue-50 rounded-full group">
+                View Details
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

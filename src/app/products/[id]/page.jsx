@@ -5,10 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 
-// ডাটা ফেচিং ফাংশন (Server Side)
 const getBaseUrl = () => {
   if (process.env.NEXTAUTH_URL) {
-    return `https://${process.env.NEXTAUTH_URL}`;
+    return `${process.env.NEXTAUTH_URL}`;
   }
   return "http://localhost:3000";
 };
