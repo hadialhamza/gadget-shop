@@ -28,7 +28,7 @@ export default function FeaturedProducts({ featuredProducts }) {
   };
 
   return (
-    <section className="py-10 px-4 md:px-8 bg-background mb-5">
+    <section className="py-10 px-4 md:px-8 bg-transparent mb-5">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

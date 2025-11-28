@@ -70,7 +70,7 @@ const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-background pt-10 pb-22 lg:pt-16">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-transparent pt-10 pb-22 lg:pt-16">
       {/* Background Decorative Blobs */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />

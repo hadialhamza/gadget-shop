@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 const StatsSection = () => {
   return (
-    <section className="py-20 px-4 md:px-8 bg-background relative overflow-hidden">
+    <section className="py-20 px-4 md:px-8 bg-transparent relative overflow-hidden">
       <div className="container mx-auto">
         {/* Stats Content */}
         <motion.div

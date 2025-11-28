@@ -40,14 +40,14 @@ export default function ManageProducts() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30 py-8">
+    <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-2">
-                Manage Products
+              <h1 className="title-custom mb-4">
+                Manage <span>Products</span>
               </h1>
               <p className="text-slate-600 dark:text-slate-400">
                 Manage your product inventory and listings
@@ -55,7 +55,7 @@ export default function ManageProducts() {
             </div>
             <Button
               asChild
-              className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 shadow-lg shadow-blue-500/25"
+              className="bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 shadow-lg shadow-blue-500/25"
             >
               <Link
                 href="/dashboard/add-product"
@@ -82,7 +82,7 @@ export default function ManageProducts() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
+            <Card className="border-0 shadow-lg bg-linear-to-r from-blue-500 to-cyan-500 text-white">
               <CardContent className="p-4 flex items-center justify-between">
                 <div>
                   <p className="text-sm opacity-90">Total Products</p>
@@ -97,7 +97,7 @@ export default function ManageProducts() {
         </div>
 
         {/* Products Table */}
-        <Card className="border-0 shadow-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+        <Card className="border-0 shadow-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm px-4">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-2 text-slate-800 dark:text-white">
               <Package className="h-5 w-5 text-blue-500" />
@@ -160,7 +160,7 @@ export default function ManageProducts() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                        <span className="font-bold text-lg bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                           ${product.price}
                         </span>
                       </TableCell>
@@ -220,7 +220,7 @@ export default function ManageProducts() {
                   {!searchTerm && (
                     <Button
                       asChild
-                      className="bg-gradient-to-r from-blue-600 to-cyan-500"
+                      className="bg-linear-to-r from-blue-600 to-cyan-500"
                     >
                       <Link href="/dashboard/add-product">
                         <Plus className="h-4 w-4 mr-2" />

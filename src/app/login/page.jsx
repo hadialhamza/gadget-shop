@@ -57,7 +57,7 @@ export default function LoginPage() {
         icon: "warning",
         title: "Missing Fields",
         text: "Please fill in all fields before continuing.",
-        confirmButtonColor: "#3b82f6", // Matches your blue theme
+        confirmButtonColor: "#3b82f6",
         background: "#fff",
         color: "#1e293b",
       });
@@ -82,7 +82,6 @@ export default function LoginPage() {
       });
       setLoading(false);
     } else {
-      // Success Alert
       Swal.fire({
         icon: "success",
         title: "Welcome Back!",
@@ -119,7 +118,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50/50 to-cyan-50/30 dark:from-slate-900 dark:via-blue-950/50 dark:to-cyan-950/30 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-transparent flex items-center justify-center p-4">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>

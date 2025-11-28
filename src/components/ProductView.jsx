@@ -36,7 +36,7 @@ const ProductView = ({ products }) => {
   });
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4 md:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-transparent py-12 px-4 md:px-8 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-96 bg-blue-500/5 -skew-y-3 -z-10 origin-top-left" />
       <div className="absolute top-20 right-[-100px] w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -z-10" />
 

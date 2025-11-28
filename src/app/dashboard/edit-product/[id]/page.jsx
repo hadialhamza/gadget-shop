@@ -137,7 +137,7 @@ export default function EditProductPage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-background py-10 px-4">
+    <div className="min-h-screen py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

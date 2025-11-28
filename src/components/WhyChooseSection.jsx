@@ -92,7 +92,7 @@ export default function WhyChooseSection() {
   };
 
   return (
-    <section className="py-20 px-4 md:px-8 bg-background">
+    <section className="pt-20 px-4 md:px-8 bg-transparent">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -102,7 +102,7 @@ export default function WhyChooseSection() {
           className="text-center mb-16"
         >
           <h2 className="title-custom mb-4">
-            Why Choose <span>NextShop?</span>
+            Why Choose <span>NextGadget?</span>
           </h2>
           <p className="subtitle max-w-2xl mx-auto">
             We are committed to providing the best shopping experience with

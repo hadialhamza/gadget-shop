@@ -28,7 +28,6 @@ import {
   Sparkles,
   CheckCircle2,
   AlertCircle,
-  ImagePlus,
   Loader2,
   ShoppingBag,
 } from "lucide-react";
@@ -193,7 +192,7 @@ export default function RegisterPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -510,10 +509,10 @@ export default function RegisterPage() {
                           Processing...
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2">
+                        <span className="flex items-center gap-2">
                           Create Account
                           <ArrowRight className="h-4 w-4" />
-                        </div>
+                        </span>
                       )}
                     </Button>
                   </motion.div>
@@ -524,7 +523,7 @@ export default function RegisterPage() {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
+                    <span className="px-2 text-muted-foreground">
                       Or sign up with
                     </span>
                   </div>

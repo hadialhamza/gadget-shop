@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import { Providers } from "./providers";
+import ThemeBackground from "@/components/Background";
 
 // Title Font
 const poppins = Poppins({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         className={`${poppins.variable} ${jakarta.variable} antialiased font-body`}
       >
         <Providers>
+        <ThemeBackground/>
           <Navbar />
           <div className="min-h-screen">{children}</div>
           <Footer />

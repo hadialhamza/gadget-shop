@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowLeft,
   ShoppingCart,
@@ -56,9 +55,9 @@ export default async function ProductDetails({ params }) {
   const savings = (originalPrice - product.price).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="bg-muted/30 border-b border-border/50">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen pb-20">
+      <div className="">
+        <div className="container mx-auto p-4">
           <Button
             variant="ghost"
             asChild
@@ -74,7 +73,7 @@ export default async function ProductDetails({ params }) {
       <div className="container mx-auto px-4 py-10 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           <div className="space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <Card className="relative border-border/50 shadow-sm bg-secondary/10 dark:bg-secondary/5 overflow-hidden rounded-3xl h-[400px] md:h-[550px] flex items-center justify-center group">
+            <Card className="relative border-border/50 shadow-sm overflow-hidden rounded-3xl h-[400px] md:h-[550px] flex items-center justify-center group">
               <div className="absolute top-4 left-4 z-10">
                 <Badge className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-sm font-medium shadow-lg">
                   Sale -20%
@@ -98,36 +97,14 @@ export default async function ProductDetails({ params }) {
                 </Button>
               </div>
 
-              <div className="relative w-full h-full p-8 md:p-12 transition-transform duration-500 ease-in-out group-hover:scale-105">
-                <Image
+              <div className="relative w-full p-4 h-full transition-transform duration-500 ease-in-out group-hover:scale-105">
+                <img
                   src={product.image}
                   alt={product.title}
-                  fill
-                  className="object-contain mix-blend-multiply dark:mix-blend-normal drop-shadow-2xl"
-                  priority
+                  className="object-cover rounded-2xl border-2 h-full w-full mix-blend-multiply dark:mix-blend-normal drop-shadow-2xl"
                 />
               </div>
             </Card>
-
-            <div className="grid grid-cols-4 gap-4">
-              {[...Array(4)].map((_, i) => (
-                <div
-                  key={i}
-                  className={`relative aspect-square rounded-xl border cursor-pointer overflow-hidden bg-secondary/10 ${
-                    i === 0
-                      ? "ring-2 ring-primary border-primary"
-                      : "border-transparent hover:border-border"
-                  }`}
-                >
-                  <Image
-                    src={product.image}
-                    alt="Thumbnail"
-                    fill
-                    className="object-contain p-2"
-                  />
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="flex flex-col space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">

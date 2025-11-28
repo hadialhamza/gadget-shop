@@ -17,7 +17,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-// Shadcn UI Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,8 +28,6 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 const AddProductPage = () => {
   const { data: session, status } = useSession();
@@ -46,14 +43,12 @@ const AddProductPage = () => {
   });
   const [errors, setErrors] = useState({});
 
-  // Session check
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
 
-  // Handle image URL changes for preview
   const handleImageChange = (e) => {
     const url = e.target.value;
     setFormData((prev) => ({ ...prev, image: url }));
@@ -62,7 +57,6 @@ const AddProductPage = () => {
     }
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
 
@@ -103,7 +97,6 @@ const AddProductPage = () => {
     }
   };
 
-  // Handle form submission
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
@@ -131,7 +124,6 @@ const AddProductPage = () => {
       });
 
       if (res.ok) {
-        // Success state
         setTimeout(() => {
           router.push("/dashboard/manage-products");
         }, 1500);
@@ -147,10 +139,9 @@ const AddProductPage = () => {
     }
   };
 
-  // Loading state
   if (status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">
@@ -183,7 +174,7 @@ const AddProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-cyan-50/10 dark:from-slate-900 dark:via-blue-950/20 dark:to-cyan-950/10 py-8">
+    <div className="min-h-screen py-8">
       <div className="container max-w-4xl mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -202,12 +193,12 @@ const AddProductPage = () => {
           </Button>
 
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-lg">
+            <div className="mr-2 p-3 bg-linear-to-r from-blue-500 to-cyan-500 rounded-2xl shadow-lg">
               <PackagePlus className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-                Add New Product
+              <h1 className="title-custom">
+                Add New <span>Product</span>
               </h1>
               <p className="text-slate-600 dark:text-slate-400 mt-2">
                 List your amazing gadgets for the world to discover
@@ -246,7 +237,7 @@ const AddProductPage = () => {
                             title: e.target.value,
                           }))
                         }
-                        placeholder="e.g., Sony WH-1000XM5 Wireless Noise Canceling Headphones"
+                        placeholder="Enter Product Title"
                         className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                         required
                       />
@@ -284,7 +275,7 @@ const AddProductPage = () => {
                               price: e.target.value,
                             }))
                           }
-                          placeholder="299.99"
+                          placeholder="Enter Price"
                           min="0"
                           step="0.01"
                           className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
@@ -318,7 +309,7 @@ const AddProductPage = () => {
                               category: e.target.value,
                             }))
                           }
-                          placeholder="e.g., Audio, Gaming, Smart Home"
+                          placeholder="Product Category"
                           className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                           required
                         />
@@ -348,7 +339,7 @@ const AddProductPage = () => {
                         type="url"
                         value={formData.image}
                         onChange={handleImageChange}
-                        placeholder="https://example.com/image.jpg"
+                        placeholder="Product image URL"
                         className="pl-11 pr-4 py-3 h-12 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                         required
                       />
@@ -385,7 +376,7 @@ const AddProductPage = () => {
                             description: e.target.value,
                           }))
                         }
-                        placeholder="Describe your product in detail. Include features, specifications, and what makes it special..."
+                        placeholder="Product Details"
                         className="min-h-[140px] resize-y pl-11 pr-4 py-3 rounded-xl border-2 bg-white/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                         required
                       />
@@ -412,9 +403,9 @@ const AddProductPage = () => {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 relative overflow-hidden group"
+                      className="w-full h-14 text-lg bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 relative overflow-hidden group"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                      <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                       {loading ? (
                         <div className="flex items-center gap-2">
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -438,7 +429,7 @@ const AddProductPage = () => {
                         exit={{ opacity: 0, height: 0 }}
                         className="flex items-center gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
                       >
-                        <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
+                        <AlertCircle className="h-5 w-5 text-red-500 shrink-0" />
                         <p className="text-sm text-red-700 dark:text-red-300 font-medium">
                           {errors.submit}
                         </p>
@@ -484,7 +475,7 @@ const AddProductPage = () => {
             </Card>
 
             {/* Tips Card */}
-            <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
+            <Card className="border-0 shadow-xl bg-linear-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg font-semibold flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-blue-500" />
@@ -500,7 +491,7 @@ const AddProductPage = () => {
                   "Include key features and specifications",
                 ].map((tip, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
                     <span className="text-sm text-slate-700 dark:text-slate-300">
                       {tip}
                     </span>

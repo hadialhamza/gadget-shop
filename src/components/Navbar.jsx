@@ -58,8 +58,8 @@ const Navbar = () => {
     <nav
       className={`sticky top-0 z-50 w-full transition-all duration-500 ease-in-out ${
         scrolled
-          ? "border-b shadow-md py-0 bg-background/70 backdrop-blur-xl"
-          : "border-b border-transparent bg-linear-to-r from-background via-background/95 to-background py-2"
+          ? " shadow-md py-0 bg-background/50 backdrop-blur-md"
+          : "  py-2"
       }`}
     >
       <div className="container mx-auto relative flex items-center justify-between px-2 sm:px-4 py-3">
